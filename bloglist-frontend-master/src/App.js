@@ -92,3 +92,5 @@ export default connect(
   mapStateToProps, 
   { setUser, logout, initializeBlogs, setNotification, initializeUsers }
 )(App)
+
+// test
