@@ -1,7 +1,7 @@
 const notificationReducer = (state = null, action) => {
   switch (action.type) {
     case 'SET_MESSAGE':
-      return {...action.data}
+      return { ...action.data }
     case 'CLEAR_MESSAGE':
       return null
     default:

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
+import BlogList from './components/BlogList'
 import BlogForm from './components/BlogForm'
 import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
@@ -12,8 +13,10 @@ import { initializeBlogs } from './reducers/blogReducer'
 import { setUser, logout, initializeUsers } from './reducers/userReducer'
 import {
   BrowserRouter as Router,
-  Route
+  Route,
+  Link
 } from 'react-router-dom'
+import { Menu, Container, Button } from 'semantic-ui-react'
 
 const App = (props) => {
   const [formVisible, setFormVisible] = useState(false)
@@ -38,11 +41,11 @@ const App = (props) => {
     return (
       <div>
         <div style={hideWhenVisible}>
-          <button onClick={() => setFormVisible(true)}>create new</button>
+          <Button onClick={() => setFormVisible(true)}>create new</Button>
         </div>
         <div style={showWhenVisible}>
           <BlogForm setFormVisible={setFormVisible}/>
-          <button onClick={() => setFormVisible(false)}>cancel</button>
+          <Button onClick={() => setFormVisible(false)}>cancel</Button>
         </div>
       </div>
     )
@@ -50,33 +53,45 @@ const App = (props) => {
 
   if (!currentUser) {
     return (
-      <div>
+      <Container>
         <Notification />
         <LoginForm />
-      </div>
+      </Container>
     )
   }
-  
+
+  const blogById = (id) => props.blogs.find(blog => blog.id === id)
+
   return (
-    <Router>
-      <div>
-        <Notification />
-        <h2>blogs</h2>
-        <p>{currentUser.username} logged in </p><button onClick={props.logout}>logout</button>
-        <Route exact path="/" render={() => (
-          <div>
-            {blogForm()}
-            <div className='bloglist'>
-              {props.blogs.sort((a, b) => b.likes - a.likes).map(blog =>
-                <Blog key={blog.id} blog={blog} />
-              )}
+    <Container>
+      <Router>
+        <div>
+          <Menu>
+            <Menu.Item link>
+              <Link to="/">blogs</Link>
+            </Menu.Item>
+            <Menu.Item link>
+              <Link to="/users">users</Link>
+            </Menu.Item>
+            <Menu.Item>
+              {currentUser.username} logged in
+              <Button onClick={props.logout}>logout</Button>
+            </Menu.Item>
+          </Menu>
+          <Notification />
+          <h2>blog app</h2>
+          <Route exact path="/" render={() => (
+            <div>
+              {blogForm()}
+              <BlogList blogs={props.blogs.sort((a, b) => b.likes - a.likes)} />
             </div>
-          </div>
-        )} />
-        <Route exact path="/users" render={() => <UserList />} />
-        <Route exact path="/users/:id" render={({ match }) => <User id={match.params.id} />} />
-      </div>
-    </Router>
+          )} />
+          <Route exact path="/blogs/:id" render={({ match }) => <Blog blog={blogById(match.params.id)} />} />
+          <Route exact path="/users" render={() => <UserList users={props.users}/>} />
+          <Route exact path="/users/:id" render={({ match }) => <User id={match.params.id} />} />
+        </div>
+      </Router>
+    </Container>
   )
 }
 
@@ -89,6 +104,6 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(
-  mapStateToProps, 
+  mapStateToProps,
   { setUser, logout, initializeBlogs, setNotification, initializeUsers }
 )(App)

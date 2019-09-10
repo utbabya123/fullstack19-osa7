@@ -11,11 +11,11 @@ const initialState = {
 const userReducer = (state = {}, action) => {
   switch (action.type) {
     case 'LOGIN_USER':
-      return {...state, currentUser: action.data}
+      return { ...state, currentUser: action.data }
     case 'LOGOUT':
       return initialState
     case 'INIT_USERS':
-      return {...state, users: action.data}
+      return { ...state, users: action.data }
     default:
       return state
   }
@@ -37,7 +37,7 @@ export const loginUser = (username, password) => {
         data: user
       })
     } catch (e) {
-      dispatch(setNotification('error', 'wrong username or password'))
+      dispatch(setNotification('negative', 'wrong username or password'))
     }
   }
 }

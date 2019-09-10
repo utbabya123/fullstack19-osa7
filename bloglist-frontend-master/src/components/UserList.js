@@ -1,44 +1,33 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-
-
+import { Table } from 'semantic-ui-react'
 
 const UserList = (props) => {
-  if ( props.users === undefined) { 
+  if (props.users === undefined) {
     return null
   }
 
   return (
     <div>
       <h1>users</h1>
-      <table>
-        <thead>
-          <tr>
-            <th></th>
-            <th>blogs added</th>
-          </tr>
-        </thead>
-        <tbody>
+      <Table>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell width={3}>user</Table.HeaderCell>
+            <Table.HeaderCell>blogs added</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
           {props.users.map(user =>
-            <tr key={user.id}>
-              <td><Link to={`/users/${user.id}`}>{user.name}</Link></td>
-              <td>{user.blogs.length ? user.blogs.length : 0}</td>
-            </tr>
+            <Table.Row key={user.id}>
+              <Table.Cell><Link to={`/users/${user.id}`}>{user.name}</Link></Table.Cell>
+              <Table.Cell>{user.blogs.length ? user.blogs.length : 0}</Table.Cell>
+            </Table.Row>
           )}
-        </tbody>
-      </table>
+        </Table.Body>
+      </Table>
     </div>
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    users: state.user.users
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  null
-)(UserList)
+export default UserList

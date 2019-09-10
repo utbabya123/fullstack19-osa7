@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { loginUser } from '../reducers/userReducer'
 import useField from '../hooks/index'
+import { Form, Button } from 'semantic-ui-react'
 
 const LoginForm = (props) => {
   const { reset: resetUsername, ...username } = useField('text')
@@ -16,17 +17,17 @@ const LoginForm = (props) => {
   return (
     <div>
       <h2>Log in to application</h2>
-      <form onSubmit={handleSubmit} className='loginform'>
-        <div>
+      <Form onSubmit={handleSubmit}>
+        <Form.Field>
           käyttäjätunnus
           <input {...username} />
-        </div>
-        <div>
+        </Form.Field>
+        <Form.Field>
           salasana
           <input {...password} />
-        </div>
-        <button type='submit'>kirjaudu</button>
-      </form>
+        </Form.Field>
+        <Button type='submit'>kirjaudu</Button>
+      </Form>
     </div>
   )
 }

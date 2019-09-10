@@ -1,5 +1,5 @@
 import React from 'react'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 
 const Notification = (props) => {
   const { notification } = props
@@ -9,7 +9,7 @@ const Notification = (props) => {
   }
 
   return (
-    <div className={notification.type}>
+    <div className={`ui ${notification.type} message`}>
       {notification.message}
     </div>
   )
@@ -25,4 +25,3 @@ export default connect(
   mapStateToProps,
   null
 )(Notification)
-

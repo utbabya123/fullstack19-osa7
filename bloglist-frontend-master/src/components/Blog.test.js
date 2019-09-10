@@ -1,43 +1,41 @@
-import React from 'react'
-import { render, fireEvent } from '@testing-library/react'
-// import { prettyDOM } from '@testing-library/dom'
-import Blog from './Blog'
+// import React from 'react'
+// import { render, fireEvent } from '@testing-library/react'
+// // import { prettyDOM } from '@testing-library/dom'
+// import Blog from './Blog'
+// const blog = {
+//   title: 'Canonical string reduction',
+//   author: 'Edsger W. Dijkstra',
+//   likes: 12,
+//   url: 'localhost.com',
+//   user: {
+//     name: 'matti'
+//   }
+// }
 
+// let component
 
-const blog = {
-  title: 'Canonical string reduction',
-  author: 'Edsger W. Dijkstra',
-  likes: 12,
-  url: 'localhost.com',
-  user: {
-    name: 'matti'
-  }
-}
+// beforeEach(() => {
+//   component = render(
+//     <Blog blog={blog} currentUser={{ username: 'testi' }} />
+//   )
+// })
 
-let component
+// test('at the start only name and author are visible', () => {
+//   const div = component.container.querySelector('.blogSimple')
 
-beforeEach(() => {
-  component = render(
-    <Blog blog={blog} currentUser={{ username: 'testi' }} />
-  )
-})
+//   expect(div).toBeDefined()
+// })
 
-test('at the start only name and author are visible', () => {
-  const div = component.container.querySelector('.blogSimple')
+// test('clicking the blog will reveal full details', () => {
+//   let div = component.container.querySelector('.blogSimple')
 
-  expect(div).toBeDefined()
-})
+//   fireEvent.click(div)
 
-test('clicking the blog will reveal full details', () => {
-  let div = component.container.querySelector('.blogSimple')
+//   div = component.container.querySelector('.blogFull')
+//   expect(div).toBeDefined()
 
-  fireEvent.click(div)
+//   expect(component.container).toHaveTextContent('localhost.com')
+//   expect(component.container).toHaveTextContent('added by matti')
 
-  div = component.container.querySelector('.blogFull')
-  expect(div).toBeDefined()
-
-  expect(component.container).toHaveTextContent('localhost.com')
-  expect(component.container).toHaveTextContent('added by matti')
-
-  // console.log(prettyDOM(div))
-})
+//   // console.log(prettyDOM(div))
+// })

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import useField from '../hooks/index'
 import { connect } from 'react-redux'
 import { createBlog } from '../reducers/blogReducer'
+import { Form, Button } from 'semantic-ui-react'
 
 const BlogForm = (props) => {
   const { reset: resetTitle, ...title } = useField('text')
@@ -21,18 +22,21 @@ const BlogForm = (props) => {
   return (
     <div>
       <h1>create new</h1>
-      <form onSubmit={handleSubmit}>
-        title
-        <input {...title} />
-        <br/>
-        author
-        <input {...author} />
-        <br/>
-        url
-        <input {...url} />
-        <br/>
-        <button type="submit">create</button>
-      </form>
+      <Form onSubmit={handleSubmit}>
+        <Form.Field>
+          title
+          <input {...title} />
+        </Form.Field>
+        <Form.Field>
+          author
+          <input {...author} />
+        </Form.Field>
+        <Form.Field>
+          url
+          <input {...url} />
+        </Form.Field>
+        <Button type="submit">create</Button>
+      </Form>
     </div>
   )
 }
@@ -48,6 +52,6 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 export default connect(
-  mapStateToProps, 
+  mapStateToProps,
   { createBlog }
 )(BlogForm)
